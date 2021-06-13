@@ -8,16 +8,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pjwstk.demo.model.Movie;
-import pl.edu.pjwstk.demo.service.SecondMovieService;
+import pl.edu.pjwstk.demo.service.RentalMovieService;
 
 
 @RestController
 @RequestMapping("/api")
 public class SecondMovieController {
 
-    private final SecondMovieService secondMovieService;
+    private final RentalMovieService secondMovieService;
 
-    public SecondMovieController(SecondMovieService secondMovieService) {
+
+    public SecondMovieController(RentalMovieService secondMovieService) {
         this.secondMovieService = secondMovieService;
     }
 
@@ -27,8 +28,9 @@ public class SecondMovieController {
     }
 
     @PutMapping("/returnMovie/{id}")
-    public void changeAvailable(@PathVariable Long id) {
+    public ResponseEntity<Void> changeAvailable(@PathVariable Long id) {
         secondMovieService.returnMovie(id);
+        return ResponseEntity.ok().build();
     }
 
 }
